@@ -1,5 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
+void DisplayMenu(){
+printf("\n1. Dynamic memory allocation for two-dimensional arrays\n");
+printf("2. Entering array elements from the keyboard\n");
+printf("3. Filling the array with random values\n");
+printf("4. Sorting table elements (according to variants)\n");
+printf("5. Displaying table elements on screen\n");
+printf("6. Releasing the memory allocated for the table\n");
+printf("0. Exiting the program\n");
+}
+
+
+
 void printpointers(int a){
 int *point=&a;
 printf("Printed value via pointers: %d\n",*point);
@@ -77,39 +89,32 @@ for (i = 0; i < rows; i++) {
              free(brok);
 }
 
-void basetask(int **array, int rows,int columns){
-int** brok=(int **)malloc(rows*sizeof(int*));
+void basetask(int **brok, int rows,int columns){
 int* a=(int*)malloc(columns*sizeof(int*));
 int i,j;
-for(i=0; i<rows;i++){
-    brok[i]=(int*)malloc(columns*sizeof(int*));
 
-}
-for (i = 0; i < rows; i++) {
-             for (j = 0; j < columns; j++) {
-                    brok[i][j]=array[i][j];}}
 for (i = 0; i < rows; i++) {
              for (j = 0; j < columns; j++) {
                   *(a+j)=*(*(brok+i)+j);  }
                   InsertionSort(a,columns);
                for (j = 0; j < columns; j++) {
                   *(*(brok+i)+j)=*(a+j);}
-                  }
+                  }free(a);
 
-for (i = 0; i < rows; i++) {
+/*for (i = 0; i < rows; i++) {
              for (j = 0; j < columns; j++) {
                     printf("%5d",*(*(brok+i)+j));}printf("\n");}
                     free(a);
                     for(i=0; i<rows;i++){free(brok[i]);}
-                    free(brok);
+                    free(brok);*/
 }
 
 int main(){
-    int size,i,j,min,max,sum,rows,columns;
+    int size,i,j,min,max,sum,rows,columns,n,m,choice;
     int* d1;
-int a=6;
+int a=-13;
 printpointers(a);
-int b=8;
+int b=21;
 printf("a=%d and b=%d\n",a,b);
 printf("Swap a and b\n");
 swap(&a,&b);
@@ -118,8 +123,8 @@ printf("Write the size of the array: ");
 scanf("%d",&size);
  d1=(int*)malloc(size*sizeof(int*));
         for (i = 0; i < size; i++) {
-            scanf("%d", &*(d1+i));
-           /* *(d1+i) = rand()%61-30;*/
+            /*scanf("%d", &*(d1+i));*/
+            *(d1+i) = rand()%61-30;
         }
     printf("The elements of the array are: ");
         for (i = 0; i < size; i++) {
@@ -138,6 +143,7 @@ easy3(d1,size);
 printf("\nEnter amount of rows and columns: ");
 scanf("%d %d",&rows,&columns);
 int **d2;
+int **bsk;
 d2=(int**)malloc(rows*sizeof(int*));
 
 for(i=0; i<rows;i++){
@@ -145,8 +151,7 @@ for(i=0; i<rows;i++){
 }
  for (i = 0; i < rows; i++) {
              for (j = 0; j < columns; j++) {
-                    scanf("%d", &*(*(d2+i)+j));
-               /* *(*(d2+i)+j) = rand()%61-30;*/
+                *(*(d2+i)+j) = rand()%61-30;
 
         }
         }
@@ -163,7 +168,52 @@ easy4(d2,rows, columns);
 
 printf("\n");printf("\n");
 
-printf("\n Sorted ascendant by rows array: \n");
+while (choice!=0){
+        DisplayMenu();
+        printf("Pick an option to choose: ");
+        scanf("%d",&choice);
+switch(choice){
+case 1:
+    printf("\nEnter amount of rows and columns: ");
+scanf("%d %d",&n,&m);
+bsk=(int**)malloc(n*sizeof(int*));
+for(i=0; i<n;i++){
+    bsk[i]=(int*)malloc(m*sizeof(int*));
+}
+    break;
+case 2:
+
+    for (i = 0; i < n; i++) {
+             for (j = 0; j < m; j++) {
+                    scanf("%d", &*(*(bsk+i)+j));}}
+    break;
+case 3:
+
+     for (i = 0; i < n; i++) {
+             for (j = 0; j < m; j++) {
+                *(*(bsk+i)+j) = rand()%61-30;}}
+
+
+    break;
+case 4:
+
+    basetask(bsk,n,m);
+    break;
+case 5:
+
+    for (i = 0; i < n; i++) {
+             for (j = 0; j < m; j++) {
+                    printf("%5d",*(*(bsk+i)+j));}printf("\n");}
+    break;
+case 6:
+
+    for(i=0; i<n;i++){free(bsk[i]);}
+                    free(bsk);
+    break;
+case 0:
+    break;
+
+}}
 basetask(d2,rows,columns);
  for (i = 0; i < rows; i++) {free(d2[i]);
  }
