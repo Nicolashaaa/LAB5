@@ -198,6 +198,7 @@ case 3:
 case 4:
 
     basetask(bsk,n,m);
+    printf("\n done!\n");
     break;
 case 5:
 
